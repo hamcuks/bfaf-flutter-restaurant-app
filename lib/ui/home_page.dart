@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<RestaurantModel> restaurants = [];
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -28,8 +29,21 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void searchRestaurant(String restaurantName) {
+    if (restaurantName.isEmpty) {
+      getAllRestaurantData();
+    } else {
+      RestaurantController.searchRestaurant(restaurantName).then((value) {
+        setState(() {
+          restaurants = value;
+        });
+      });
+    }
+  }
+
   @override
   void dispose() {
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -63,14 +77,42 @@ class _HomePageState extends State<HomePage> {
                 style: MyTheme.regularText.copyWith(color: MyTheme.black),
               ),
               SizedBox(
-                height: 48,
+                height: 24,
+              ),
+              TextField(
+                controller: _searchController,
+                onChanged: (value) => searchRestaurant(value),
+                maxLines: 1,
+                style: TextStyle(fontSize: 14, color: Colors.black),
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none),
+                    filled: true,
+                    hintStyle:
+                        TextStyle(color: Color(0xff6B779A), fontSize: 14),
+                    suffixIcon: Icon(Icons.search, color: Color(0xff6B779A)),
+                    contentPadding: EdgeInsets.only(
+                        left: 15, bottom: 11, top: 11, right: 15),
+                    hintText: "Search For Doctor"),
+              ),
+              SizedBox(
+                height: 24,
               ),
               Flexible(
                   child: ListView.builder(
                 itemCount: restaurants.length,
-                itemBuilder: (context, index) => _buildRestaurantCard(
-                  data: restaurants[index],
-                ),
+                itemBuilder: (context, index) {
+                  if (restaurants.length > 0) {
+                    return _buildRestaurantCard(
+                      data: restaurants[index],
+                    );
+                  } else {
+                    return Center(
+                      child: Text('Data Tidak Ditemukan'),
+                    );
+                  }
+                },
               ))
             ],
           ),

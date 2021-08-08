@@ -51,7 +51,8 @@ class RestaurantController {
     }
 
     return listResto
-        .where((element) => element.name == restaurantName)
+        .where((element) =>
+            element.name.toLowerCase() == restaurantName.toLowerCase())
         .toList();
   }
 }
