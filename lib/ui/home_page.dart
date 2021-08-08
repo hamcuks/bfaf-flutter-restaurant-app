@@ -51,11 +51,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print(restaurants);
-        },
-      ),
+      backgroundColor: MyTheme.scaffoldBackground,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
