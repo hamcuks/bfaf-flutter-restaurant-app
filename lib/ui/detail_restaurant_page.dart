@@ -70,18 +70,106 @@ class DetailRestaurantPage extends StatelessWidget {
                 SizedBox(
                   height: 22,
                 ),
-                Column(
-                  children: [
-                    Text(
-                      'Menus',
-                      style: MyTheme.cardTitle.copyWith(color: MyTheme.black),
-                    ),
-                  ],
+                _BuildMenus(
+                  menus: data.menus,
                 )
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _BuildMenus extends StatelessWidget {
+  const _BuildMenus({
+    Key? key,
+    this.menus,
+  }) : super(key: key);
+
+  final menus;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Menus',
+          style: MyTheme.cardTitle.copyWith(color: MyTheme.black),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Text(
+          'Foods',
+          style: MyTheme.regularText.copyWith(color: MyTheme.black),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: menus['foods']
+              .map<Widget>((e) => _MenuItem(
+                    icon: Icons.lunch_dining_outlined,
+                    name: e['name'],
+                  ))
+              .toList(),
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        Text(
+          'Drinks',
+          style: MyTheme.regularText.copyWith(color: MyTheme.black),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: menus['drinks']
+              .map<Widget>((e) => _MenuItem(
+                    icon: Icons.local_cafe_outlined,
+                    name: e['name'],
+                  ))
+              .toList(),
+        ),
+      ],
+    );
+  }
+}
+
+class _MenuItem extends StatelessWidget {
+  const _MenuItem({
+    Key? key,
+    required this.name,
+    required this.icon,
+  }) : super(key: key);
+
+  final String name;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.grey[100],
+      ),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: MyTheme.black,
+          ),
+          SizedBox(
+            width: 16,
+          ),
+          Text(
+            '$name',
+            style: MyTheme.regularText.copyWith(color: MyTheme.black),
+          ),
+        ],
       ),
     );
   }
