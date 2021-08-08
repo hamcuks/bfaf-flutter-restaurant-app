@@ -52,7 +52,7 @@ class RestaurantController {
 
     return listResto
         .where((element) =>
-            element.name.toLowerCase() == restaurantName.toLowerCase())
+            element.name.toLowerCase().contains(restaurantName.toLowerCase()))
         .toList();
   }
 }
