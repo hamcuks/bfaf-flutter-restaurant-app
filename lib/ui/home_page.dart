@@ -101,15 +101,19 @@ class _HomePageState extends State<HomePage> {
               ),
               Flexible(
                   child: ListView.builder(
-                itemCount: restaurants.length,
+                itemCount: restaurants.length == 0 ? 1 : restaurants.length,
                 itemBuilder: (context, index) {
-                  if (restaurants.length > 0) {
+                  if (restaurants.length != 0) {
                     return _buildRestaurantCard(
                       data: restaurants[index],
                     );
                   } else {
                     return Center(
-                      child: Text('Data Tidak Ditemukan'),
+                      child: Text(
+                        'Data Tidak Ditemukan',
+                        style:
+                            MyTheme.regularText.copyWith(color: MyTheme.black),
+                      ),
                     );
                   }
                 },
