@@ -1,5 +1,6 @@
 import 'package:dicoding_submission_restaurant_app/model/restaurant_model.dart';
 import 'package:dicoding_submission_restaurant_app/theme.dart';
+import 'package:dicoding_submission_restaurant_app/widget/menu_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -109,7 +110,7 @@ class _BuildMenus extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: menus['foods']
-              .map<Widget>((e) => _MenuItem(
+              .map<Widget>((e) => MenuItem(
                     icon: Icons.lunch_dining_outlined,
                     name: e['name'],
                   ))
@@ -125,52 +126,13 @@ class _BuildMenus extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: menus['drinks']
-              .map<Widget>((e) => _MenuItem(
+              .map<Widget>((e) => MenuItem(
                     icon: Icons.local_cafe_outlined,
                     name: e['name'],
                   ))
               .toList(),
         ),
       ],
-    );
-  }
-}
-
-class _MenuItem extends StatelessWidget {
-  const _MenuItem({
-    Key? key,
-    required this.name,
-    required this.icon,
-  }) : super(key: key);
-
-  final String name;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.grey[100],
-      ),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: MyTheme.black,
-          ),
-          SizedBox(
-            width: 16,
-          ),
-          Text(
-            '$name',
-            style: MyTheme.regularText.copyWith(color: MyTheme.black),
-          ),
-        ],
-      ),
     );
   }
 }
