@@ -50,24 +50,45 @@ class DetailRestaurantPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Text(
-                      'Description',
-                      style: MyTheme.cardTitle.copyWith(color: MyTheme.black),
+                    Container(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          Text(
+                            '${data.rating}',
+                            style: MyTheme.regularText
+                                .copyWith(color: MyTheme.black),
+                          )
+                        ],
+                      ),
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      '${data.description}',
-                      textAlign: TextAlign.justify,
-                      style: MyTheme.regularText
-                          .copyWith(color: MyTheme.black, height: 1.6),
+                    VerticalDivider(),
+                    Container(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.place,
+                            color: Colors.redAccent,
+                          ),
+                          Text(
+                            '${data.city}',
+                            style: MyTheme.regularText
+                                .copyWith(color: MyTheme.black),
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 22,
+                ),
+                _RestaurantDescription(data: data),
                 SizedBox(
                   height: 22,
                 ),
@@ -79,6 +100,37 @@ class DetailRestaurantPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _RestaurantDescription extends StatelessWidget {
+  const _RestaurantDescription({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final RestaurantModel data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Description',
+          style: MyTheme.cardTitle.copyWith(color: MyTheme.black),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Text(
+          '${data.description}',
+          textAlign: TextAlign.justify,
+          style:
+              MyTheme.regularText.copyWith(color: MyTheme.black, height: 1.6),
+        ),
+      ],
     );
   }
 }
